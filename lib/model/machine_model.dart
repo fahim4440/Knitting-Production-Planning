@@ -1,5 +1,5 @@
 class Machine {
-  final int machineNumber;
+  final String machineNumber;
   final int dia;
   final int gauge;
   final String machineBrand;
@@ -21,8 +21,8 @@ class Machine {
       'dia': dia,
       'gauge': gauge,
       'machineBrand': machineBrand,
-      'machineType': machineType,
-      'floorName': floorName,
+      'machineType': machineType.toString().split(".").last,
+      'floorName': floorName.toString().split(".").last,
     };
   }
 
@@ -32,8 +32,12 @@ class Machine {
       dia: json['dia'],
       gauge: json['gauge'],
       machineBrand: json['machineBrand'],
-      machineType: json['machineType'],
-      floorName: json['floorName'],
+      machineType: MachineType.values.firstWhere(
+            (e) => e.toString().split('.').last == json['machineType'],
+      ),
+      floorName: Floor.values.firstWhere(
+            (e) => e.toString().split('.').last == json['floorName'],
+      ),
     );
   }
 }

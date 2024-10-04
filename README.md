@@ -1,6 +1,6 @@
 # knitting_production_planning
 
-A new Flutter project.
+A new Flutter project from Epyllion Group.
 
 ## Getting Started
 

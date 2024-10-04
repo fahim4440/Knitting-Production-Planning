@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:knitting_production_planning/screen/signin_page.dart';
-import 'package:knitting_production_planning/widget/buyer_list_homepage.dart';
-import 'package:knitting_production_planning/widget/data_table_homepage.dart';
-import 'package:knitting_production_planning/widget/header.dart';
-import 'package:knitting_production_planning/widget/list_of_filter_buttons_homepage.dart';
-import '../bloc/homepage_bloc/homepage_bloc.dart';
+import '../widget/buyer_list_planner_page.dart';
+import '../widget/data_table_plannerpage.dart';
+import '../widget/list_of_filter_buttons_plannerpage.dart';
+import '../widget/header.dart';
+import '../bloc/planner_page_bloc/plannerpage_bloc.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class PlannerPage extends StatefulWidget {
+  const PlannerPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<PlannerPage> createState() => _PlannerPageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    // _initializeDatabases();
-    // final OrderDatabase _orderDatabase = OrderDatabase.instance;
-    // _orderDatabase.deleteOrderDatabase();
-  }
+class _PlannerPageState extends State<PlannerPage> {
+
   final List<String> buyerList = ["M&S", "Express", "Tommy Hillfiger", "Next"];
 
   @override
@@ -36,15 +30,15 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             // Header(context),
-            BlocBuilder<HomepageBloc, HomepageState>(
+            BlocBuilder<PlannerpageBloc, PlannerpageState>(
               builder: (context, state) {
-                if (state is HomepageLoadedState) {
-                  return HomepageLoadedUI(state);
-                } else if (state is HomePageError) {
+                if (state is PlannerpageLoadedState) {
+                  return PlannerpageLoadedUI(state);
+                } else if (state is PlannerpageError) {
                   return Center(child: Text(state.error),);
-                } else if (state is HomepageLoadingState) {
+                } else if (state is PlannerpageLoadingState) {
                   return const Center(child: CircularProgressIndicator(),);
-                } else if (state is HomepageInitialState) {
+                } else if (state is PlannerpageInitial) {
                   return const Center(child: CircularProgressIndicator(),);
                 }
                 return const Center(child: CircularProgressIndicator(),);
@@ -56,7 +50,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  SizedBox HomepageLoadedUI(HomepageLoadedState state) {
+  SizedBox PlannerpageLoadedUI (PlannerpageLoadedState state) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height - 70,
@@ -64,8 +58,9 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BuyerListHomepage(context, buyerList, state),
-          const VerticalDivider(color: Colors.black, width: 30, thickness: 2.0,),
+          BuyerListPlannerpage(context, buyerList, state),
+          const VerticalDivider(
+            color: Colors.black, width: 30, thickness: 2.0,),
           Container(
             width: MediaQuery.of(context).size.width - 180.0,
             height: MediaQuery.of(context).size.height - 70,
@@ -74,14 +69,14 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(height: 10.0,),
-                ListOfFilterButtonsHomepage(context, state),
+                ListOfFilterButtonsPlannerpage(context, state),
                 const SizedBox(height: 10.0,),
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
-                      child: DataTableExcelHomepage(state),
+                      child: DataTableExcelPlannerpage(state, context),
                     ),
                   ),
                 ),

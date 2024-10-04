@@ -1,6 +1,5 @@
 import 'package:knitting_production_planning/model/order_wise_running_machine_model.dart';
-
-import 'machineModel.dart';
+import 'machine_model.dart';
 
 enum OrderStatus {
   Pending,
@@ -17,7 +16,8 @@ enum FabricOpenType {
 
 
 class Order {
-  final int orderNo;
+  final int? id;
+  final String orderNo;
   final String buyerName;
   final String fabricType;
   final String composition;
@@ -36,9 +36,11 @@ class Order {
   final double quantity;
   final double balance;
   final OrderStatus status;
+  final DateTime? estimatedKnitClosingDate;
   final DateTime orderClosingDate;
 
   Order({
+    this.id,
     required this.orderNo,
     required this.buyerName,
     required this.fabricType,
@@ -58,12 +60,14 @@ class Order {
     required this.quantity,
     required this.balance,
     required this.status,
+    this.estimatedKnitClosingDate,
     required this.orderClosingDate,
   });
 
   // Convert a JSON map to an Order object
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
+      id: json['id'] ?? 1,
       orderNo: json['orderNo'],
       buyerName: json['buyerName'],
       fabricType: json['fabricType'],
@@ -73,11 +77,17 @@ class Order {
       gauge: json['gauge'],
       finishedGSM: json['finishedGSM'],
       finishedWidth: json['finishedWidth'],
+      // openType: FabricOpenType.values.firstWhere(
+      //   (e) => e.toString().split('.').last == json['openType'],
+      // ),
       openType: FabricOpenType.values[json['openType']],
       stitchLength: json['stitchLength'],
       count: json['count'],
       spinner: json['spinner'],
       lot: json['lot'],
+      // machineType: MachineType.values.firstWhere(
+      //       (e) => e.toString().split('.').last == json['machineType'],
+      // ),
       machineType: MachineType.values[json['machineType']],
       runningMachine: json['runningMachine'] != null 
           ? (json['runningMachine'] as List)
@@ -87,6 +97,9 @@ class Order {
       quantity: json['quantity'],
       balance: json['balance'],
       status: OrderStatus.values[json['status']],
+      estimatedKnitClosingDate: json['estimatedKnitClosingDate'] != null
+          ? DateTime.parse(json['estimatedKnitClosingDate'])
+          : null,
       orderClosingDate: DateTime.parse(json['orderClosingDate']),
     );
   }
@@ -94,6 +107,7 @@ class Order {
   // Convert an Order object to a JSON map
   Map<String, dynamic> toJson() {
     return {
+      'id' : id,
       'orderNo': orderNo,
       'buyerName': buyerName,
       'fabricType': fabricType,
@@ -109,10 +123,11 @@ class Order {
       'spinner': spinner,
       'lot': lot,
       'machineType': machineType.index,
-      'runningMachine': runningMachine,
+      'runningMachine': runningMachine?.map((item) => item.toJson()).toList(),
       'quantity': quantity,
       'balance': balance,
       'status': status.index,
+      'estimatedKnitClosingDate': estimatedKnitClosingDate?.toIso8601String(),
       'orderClosingDate': orderClosingDate.toIso8601String(),
     };
   }
