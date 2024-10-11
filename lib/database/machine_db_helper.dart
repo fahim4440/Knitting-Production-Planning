@@ -26,6 +26,20 @@ class MachineDbHelper {
     }
   }
 
+  Future<List<Machine>> getMachineByFloor(Floor floorName) async {
+    final db = await instance.database;
+    final maps = await db.query(
+      'machines',
+      where: 'floorName = ?',
+      whereArgs: [floorName.toString().split(".").last],
+    );
+    if(maps.isNotEmpty) {
+      return maps.map((json) => Machine.fromJson(json)).toList();
+    } else {
+      return [];
+    }
+  }
+
   Future<List<Machine>> getMachineByMachineType(MachineType machineType) async {
     final db = await instance.database;
     final maps = await db.query(
@@ -33,6 +47,7 @@ class MachineDbHelper {
       where: 'machineType = ?',
       whereArgs: [machineType.toString().split(".").last],
     );
+    print(maps);
 
     if(maps.isNotEmpty) {
       return maps.map((json) => Machine.fromJson(json)).toList();

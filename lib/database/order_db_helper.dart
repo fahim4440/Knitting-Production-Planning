@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'order_database.dart';
 import '../model/order_model.dart';
 
@@ -18,6 +20,20 @@ class OrderDbHelper {
     );
 
     if (maps.isNotEmpty) {
+      return Order.fromJson(maps.first);
+    } else {
+      return null;
+    }
+  }
+
+  Future<Order?> getOrderByOrderId(int orderId) async {
+    final db = await instance.database;
+    final maps = await db.query(
+      'orders',
+      where: 'id = ?',
+      whereArgs: [orderId],
+    );
+    if(maps.isNotEmpty) {
       return Order.fromJson(maps.first);
     } else {
       return null;
@@ -46,6 +62,9 @@ class OrderDbHelper {
     final db = await instance.database;
     final result = await db.query('orders');
     return result.map((json) {
+      if(json['runningMachine'] != null) {
+        print(jsonDecode(json['runningMachine'] as String));
+      }
       return Order.fromJson(json);
     }).toList();
   }

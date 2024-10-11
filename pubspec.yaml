@@ -40,6 +40,7 @@ dependencies:
   sqflite_common_ffi: ^2.3.3+1
   flutter_bloc: ^8.1.6
   equatable: ^2.0.5
+  pluto_grid: ^8.0.0
 
 dev_dependencies:
   flutter_test:

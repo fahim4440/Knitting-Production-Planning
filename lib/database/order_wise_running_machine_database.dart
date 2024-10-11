@@ -28,9 +28,11 @@ class OrderWiseRunningMachineDatabase {
       CREATE TABLE running_machines (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         machineNumber TEXT, -- Foreign key to Machine table if needed
-        quantity DOUBLE,
-        balance DOUBLE,
+        quantity INTEGER,
+        balance INTEGER,
         perDayProduction INTEGER,
+        roll INTEGER,
+        averagePerDayProduction INTEGER,
         estimatedTimeToKnit TEXT,
         orderId INTEGER,
         FOREIGN KEY (orderId) REFERENCES orders(id) ON DELETE CASCADE

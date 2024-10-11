@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:knitting_production_planning/database/machine_db_helper.dart';
+import 'package:knitting_production_planning/database/order_db_helper.dart';
+import 'package:knitting_production_planning/database/order_wise_running_machine_db_helper.dart';
 import 'package:knitting_production_planning/screen/signin_page.dart';
 import '../widget/buyer_list_planner_page.dart';
 import '../widget/data_table_plannerpage.dart';
@@ -15,6 +18,15 @@ class PlannerPage extends StatefulWidget {
 }
 
 class _PlannerPageState extends State<PlannerPage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    OrderWiseRunningMachineDbHelper().instance.database;
+    OrderDbHelper().instance.database;
+    MachineDbHelper().instance.database;
+    super.initState();
+  }
 
   final List<String> buyerList = ["M&S", "Express", "Tommy Hillfiger", "Next"];
 

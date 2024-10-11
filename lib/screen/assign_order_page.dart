@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:knitting_production_planning/model/order_model.dart';
 import 'package:knitting_production_planning/screen/signin_page.dart';
 import 'package:knitting_production_planning/widget/data_table_assign_page.dart';
 import '../bloc/assign_order_page_bloc/assign_order_page_bloc.dart';
@@ -8,7 +9,8 @@ import '../widget/header.dart';
 
 class AssignOrderPage extends StatefulWidget {
   final MachineType machineType;
-  const AssignOrderPage({super.key, required this.machineType});
+  final Order order;
+  const AssignOrderPage({super.key, required this.machineType, required this.order});
 
   @override
   State<AssignOrderPage> createState() => _AssignOrderPageState();
@@ -67,7 +69,7 @@ class _AssignOrderPageState extends State<AssignOrderPage> {
               children: [
                 SingleChildScrollView(
                   scrollDirection: Axis.vertical,
-                  child: DataTableExcelAssignpage(state, context),
+                  child: DataTableExcelAssignpage(state, context, widget.order),
                 ),
               ],
             ),

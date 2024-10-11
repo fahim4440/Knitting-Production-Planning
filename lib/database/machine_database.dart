@@ -26,8 +26,8 @@ class MachineDatabase {
       dia INTEGER,
       gauge INTEGER,
       machineBrand TEXT,
-      machineType INTEGER,
-      floorName INTEGER
+      machineType TEXT,
+      floorName TEXT
     )
     ''';
     await db.execute(machineTable);

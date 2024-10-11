@@ -51,7 +51,7 @@ Widget DataTableExcelPlannerpage(PlannerpageLoadedState state, BuildContext cont
         DataCell(CellContainer(order.machineType.toString().split(".").last)),
         DataCell(MaterialButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => AssignOrderPage(machineType: order.machineType)));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => AssignOrderPage(machineType: order.machineType, order: order,)));
           },
           child: order.runningMachine == null ? const Text("Click to Assign") : CellContainer(order.runningMachine!.length.toString()),
         )),

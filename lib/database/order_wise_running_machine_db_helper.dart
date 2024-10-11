@@ -7,22 +7,12 @@ class OrderWiseRunningMachineDbHelper {
   OrderWiseRunningMachineDatabase instance = OrderWiseRunningMachineDatabase.instance;
 
   // Insert a running machine record
-  Future<int> insertRunningMachine(OrderWiseRunningMachineModel runningMachine, int orderId) async {
+  Future<int> insertRunningMachine(OrderWiseRunningMachineModel runningMachine) async {
     final db = await instance.database;
     final runningMachineJson = runningMachine.toJson();
-    print(runningMachineJson);
-    runningMachineJson['orderId'] = orderId;
-    return await db.insert('running_machines', runningMachineJson
-      // 'running_machines',
-      // {
-      //   'machineId': runningMachine.machine.machineNumber,
-      //   'quantity': runningMachine.quantity,
-      //   'balance': runningMachine.balance,
-      //   'perDayProduction': runningMachine.perDayProduction,
-      //   'estimatedTimeToKnit': runningMachine.estimatedTimeToKnit,
-      //   'orderId': orderId,
-      // },
-    );
+    // runningMachineJson['orderId'] = orderId;
+    // print(runningMachineJson);
+    return await db.insert('running_machines', runningMachineJson);
   }
 
   Future<List<OrderWiseRunningMachineModel>> getRunningOrdersOfMachine(String machineNumber) async {
@@ -34,16 +24,8 @@ class OrderWiseRunningMachineDbHelper {
     );
     List<OrderWiseRunningMachineModel> listOfOrdersRunningInMachine = [];
     for (var runningMachine in maps) {
-      // Machine? machine = await MachineDbHelper().getMachine(runningMachine['machineId']);
-      OrderWiseRunningMachineModel runningMachineModel = OrderWiseRunningMachineModel
-          .fromJson(runningMachine);
-      listOfOrdersRunningInMachine.add(runningMachineModel
-        // OrderWiseRunningMachineModel(
-        //   machine: machine!,
-        //   quantity: runningMachine['quantity'],
-        //   balance: runningMachine['balance'],
-        // ),
-      );
+      OrderWiseRunningMachineModel runningMachineModel = OrderWiseRunningMachineModel.fromJson(runningMachine);
+      listOfOrdersRunningInMachine.add(runningMachineModel);
     }
     return listOfOrdersRunningInMachine;
   }
@@ -60,15 +42,8 @@ class OrderWiseRunningMachineDbHelper {
     List<OrderWiseRunningMachineModel> listOfRunningMachines = [];
 
     for (var runningMachine in maps) {
-      // Machine? machine = await MachineDbHelper().getMachine(runningMachine['machineId']);
       OrderWiseRunningMachineModel runningMachineModel = OrderWiseRunningMachineModel.fromJson(runningMachine);
-      listOfRunningMachines.add(runningMachineModel
-        // OrderWiseRunningMachineModel(
-        //   machine: machine!,
-        //   quantity: runningMachine['quantity'],
-        //   balance: runningMachine['balance'],
-        // ),
-      );
+      listOfRunningMachines.add(runningMachineModel);
     }
 
     return listOfRunningMachines;

@@ -15,12 +15,14 @@ class PlannerpageBloc extends Bloc<PlannerpageEvent, PlannerpageState> {
   PlannerpageBloc() : super(PlannerpageInitial()) {
     on<FetchOrdersPlannerpageEvent>((event, emit) async {
       emit(PlannerpageLoadingState());
-      try {
-        List<Order> orders = await _fetchAllOrder();
-        emit(PlannerpageLoadedState(orders: orders, selectedBuyer: "", currentFilter: 'All',));
-      } catch (e) {
-        emit(PlannerpageError(e.toString()));
-      }
+      List<Order> orders = await _fetchAllOrder();
+      emit(PlannerpageLoadedState(orders: orders, selectedBuyer: "", currentFilter: 'All',));
+      // try {
+      //   List<Order> orders = await _fetchAllOrder();
+      //   emit(PlannerpageLoadedState(orders: orders, selectedBuyer: "", currentFilter: 'All',));
+      // } catch (e) {
+      //   emit(PlannerpageError(e.toString()));
+      // }
     });
 
     // Handle SelectBuyer event

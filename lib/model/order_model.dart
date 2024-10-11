@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:knitting_production_planning/model/order_wise_running_machine_model.dart';
 import 'machine_model.dart';
 
@@ -32,11 +34,11 @@ class Order {
   final String spinner;
   final String lot;
   final MachineType machineType;
-  final List<OrderWiseRunningMachineModel>? runningMachine;
+  List<OrderWiseRunningMachineModel>? runningMachine;
   final double quantity;
   final double balance;
   final OrderStatus status;
-  final DateTime? estimatedKnitClosingDate;
+  DateTime? estimatedKnitClosingDate;
   final DateTime orderClosingDate;
 
   Order({
@@ -77,22 +79,14 @@ class Order {
       gauge: json['gauge'],
       finishedGSM: json['finishedGSM'],
       finishedWidth: json['finishedWidth'],
-      // openType: FabricOpenType.values.firstWhere(
-      //   (e) => e.toString().split('.').last == json['openType'],
-      // ),
       openType: FabricOpenType.values[json['openType']],
       stitchLength: json['stitchLength'],
       count: json['count'],
       spinner: json['spinner'],
       lot: json['lot'],
-      // machineType: MachineType.values.firstWhere(
-      //       (e) => e.toString().split('.').last == json['machineType'],
-      // ),
       machineType: MachineType.values[json['machineType']],
-      runningMachine: json['runningMachine'] != null 
-          ? (json['runningMachine'] as List)
-              .map((item) => OrderWiseRunningMachineModel.fromJson(item))
-              .toList() 
+      runningMachine: json['runningMachine'] != null
+          ? (jsonDecode(json['runningMachine'] as String) as List).map((item) => OrderWiseRunningMachineModel.fromJson(item)).toList()
           : null,
       quantity: json['quantity'],
       balance: json['balance'],
@@ -123,7 +117,7 @@ class Order {
       'spinner': spinner,
       'lot': lot,
       'machineType': machineType.index,
-      'runningMachine': runningMachine?.map((item) => item.toJson()).toList(),
+      'runningMachine': runningMachine != null ? jsonEncode(runningMachine!.map((item) => item.toJson()).toList()) : null,
       'quantity': quantity,
       'balance': balance,
       'status': status.index,
