@@ -16,7 +16,7 @@ class FloorPageBloc extends Bloc<FloorPageEvent, FloorPageState> {
       emit(FloorPageLoadingState());
       try {
         MachineDbHelper machineDbHelper = MachineDbHelper();
-        List<Machine> machines = await machineDbHelper.getMachineByFloor(Floor.EFL);
+        List<Machine> machines = await machineDbHelper.getMachineByFloor(event.floorName);
         List<OrderWiseRunningMachineModel> runningMachinesOrder = [];
         OrderDbHelper orderDbHelper = OrderDbHelper();
         List<Order> orders = [];

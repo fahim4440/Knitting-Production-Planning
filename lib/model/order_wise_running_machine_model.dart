@@ -1,5 +1,3 @@
-import 'package:knitting_production_planning/model/machine_model.dart';
-
 class OrderWiseRunningMachineModel {
   final int orderId;
   final String machineNumber;

@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:knitting_production_planning/database/machine_db_helper.dart';
 import 'package:knitting_production_planning/database/order_db_helper.dart';
-import 'package:knitting_production_planning/database/order_wise_running_machine_db_helper.dart';
 import 'package:knitting_production_planning/model/machine_model.dart';
 import 'package:knitting_production_planning/model/order_wise_running_machine_model.dart';
 

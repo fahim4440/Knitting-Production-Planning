@@ -4,10 +4,7 @@ import 'package:knitting_production_planning/bloc/assign_order_page_bloc/assign_
 import 'package:knitting_production_planning/bloc/floor_page_bloc/floor_page_bloc.dart';
 import 'package:knitting_production_planning/bloc/homepage_bloc/homepage_bloc.dart';
 import 'package:knitting_production_planning/bloc/planner_page_bloc/plannerpage_bloc.dart';
-import 'package:knitting_production_planning/model/machine_model.dart';
-import 'package:knitting_production_planning/screen/floor_page.dart';
-import 'screen/planner_page.dart';
-import 'screen/home_page.dart';
+import 'package:knitting_production_planning/screen/signin_page.dart';
 
 void main() {
   runApp(MultiBlocProvider(
@@ -22,7 +19,7 @@ void main() {
         create: (BuildContext context) => AssignOrderPageBloc(),
       ),
       BlocProvider(
-        create: (BuildContext context) => FloorPageBloc()..add(const FloorPageFetchOrderByMachineEvent(floorName: Floor.EFL)),
+        create: (BuildContext context) => FloorPageBloc(),
       ),
     ],
     child: const MyApp(),
@@ -37,7 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Knitting Production & Planning',
-      home: FloorPage(),
+      home: SigninPage(),
     );
   }
 }

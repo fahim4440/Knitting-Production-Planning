@@ -9,5 +9,5 @@ final class FloorPageFetchOrderByMachineEvent extends FloorPageEvent {
 
   const FloorPageFetchOrderByMachineEvent({required this.floorName});
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [floorName];
 }

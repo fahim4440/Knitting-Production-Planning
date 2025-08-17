@@ -1,7 +1,5 @@
 import 'order_wise_running_machine_database.dart';
 import '../model/order_wise_running_machine_model.dart';
-import '../model/machine_model.dart';
-import 'machine_db_helper.dart';
 
 class OrderWiseRunningMachineDbHelper {
   OrderWiseRunningMachineDatabase instance = OrderWiseRunningMachineDatabase.instance;
